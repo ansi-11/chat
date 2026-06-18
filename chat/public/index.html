@@ -223,7 +223,11 @@ socket.on("chat message", (data) => {
         SECRET_KEY
     ).toString(CryptoJS.enc.Utf8);
 
+    console.log("원본:", decrypted);
+
     const censored = censorText(decrypted);
+
+    console.log("검열:", censored);
 
     const div = document.createElement("div");
     div.className = "message";

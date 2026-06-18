@@ -223,16 +223,36 @@ socket.on("chat message", (data) => {
         SECRET_KEY
     ).toString(CryptoJS.enc.Utf8);
 
-    const div = document.createElement("div");
+    const censored = censorText(decrypted);
 
+    const div = document.createElement("div");
     div.className = "message";
 
-    div.textContent = `${data.name}: ${decrypted}`;
+    div.textContent = `${data.name}: ${censored}`;
 
     chatBox.appendChild(div);
 
     chatBox.scrollTop = chatBox.scrollHeight;
 });
+
+    const bannedWords = [
+    "윤은우"
+];
+
+    function censorText(text) {
+    let result = text;
+
+    bannedWords.forEach(word => {
+        const regex = new RegExp(word, "gi");
+
+        result = result.replace(
+            regex,
+            "*".repeat(word.length)
+        );
+    });
+
+    return result;
+}
 
 /* ================= 접속자 ================= */
 

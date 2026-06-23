@@ -71,14 +71,34 @@
             background: white;
             border: 1px solid #ccc;
             padding: 10px;
+            font-family: monospace;
         }
-
+        
         .user-list h3 {
             font-weight: 300;
+            margin: 0 0 10px 0;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #ddd;
         }
-
+        
+        /* 접속자 리스트 */
+        .user-list ul {
+            padding-left: 0;
+            margin: 0;
+        }
+        
         .user-list li {
+            list-style: none;
             font-weight: 300;
+            font-size: 13px;
+            margin: 6px 0;
+            color: #222;
+        }
+        
+        /* 터미널 느낌 */
+        .user-list li::before {
+            content: "> ";
+            color: #888;
         }
 
         .invite-btn {
@@ -278,13 +298,14 @@ socket.on("user list", (users) => {
     userList.innerHTML = "";
 
     users.forEach(name => {
-
         const li = document.createElement("li");
-
         li.textContent = name;
-
         userList.appendChild(li);
     });
+
+    // online [n] 표시
+    document.querySelector(".user-list h3").textContent =
+        `online [${users.length}]`;
 });
 
 /* ================= 초대 ================= */

@@ -195,6 +195,12 @@
 const socket = io();
 const SECRET_KEY = "my-secret-key";
 
+document.getElementById("nicknameInput").addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+        setNickname();
+    }
+});
+
 const input = document.getElementById("input");
 const chatBox = document.getElementById("chatBox");
 const userList = document.getElementById("userList");

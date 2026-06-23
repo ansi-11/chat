@@ -257,12 +257,61 @@ input.addEventListener("keypress", (e) => {
 
 socket.on("chat message", (data) => {
 
-    const decrypted = CryptoJS.AES.decrypt(
-        data.msg,
-        SECRET_KEY
-    ).toString(CryptoJS.enc.Utf8);
+```
+const decrypted = CryptoJS.AES.decrypt(
+    data.msg,
+    SECRET_KEY
+).toString(CryptoJS.enc.Utf8);
 
-    console.log("원본:", decrypted);
+console.log("원본:", decrypted);
+
+// ===== 이스터에그 =====
+if (decrypted.trim().toLowerCase() === "top secret") {
+
+    alert("🔒 TOP SECRET ACCESS GRANTED");
+
+    document.body.style.backgroundColor = "#000";
+    document.body.style.color = "#00ff00";
+
+    const easterEgg = document.createElement("div");
+
+    easterEgg.textContent = "CLASSIFIED FILE OPENED";
+
+    easterEgg.style.position = "fixed";
+    easterEgg.style.top = "50%";
+    easterEgg.style.left = "50%";
+    easterEgg.style.transform = "translate(-50%, -50%)";
+    easterEgg.style.fontSize = "48px";
+    easterEgg.style.fontFamily = "monospace";
+    easterEgg.style.color = "red";
+    easterEgg.style.zIndex = "9999";
+    easterEgg.style.textShadow = "0 0 15px red";
+
+    document.body.appendChild(easterEgg);
+
+    setTimeout(() => {
+        easterEgg.remove();
+        document.body.style.backgroundColor = "#cfcfcf";
+        document.body.style.color = "";
+    }, 5000);
+}
+
+const censored = censorText(decrypted);
+
+console.log("검열:", censored);
+
+const div = document.createElement("div");
+div.className = "message";
+
+div.textContent = `${data.name}: ${censored}`;
+
+chatBox.appendChild(div);
+
+chatBox.scrollTop = chatBox.scrollHeight;
+```
+
+});
+
 
     const censored = censorText(decrypted);
 

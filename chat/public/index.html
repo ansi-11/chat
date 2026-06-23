@@ -195,7 +195,7 @@
 const socket = io();
 const SECRET_KEY = "my-secret-key";
 
-document.getElementById("nicknameInput").addEventListener("keypress", (e) => {
+document.getElementById("nicknameInput").addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
         setNickname();
     }
@@ -257,7 +257,6 @@ input.addEventListener("keypress", (e) => {
 
 socket.on("chat message", (data) => {
 
-```
 const decrypted = CryptoJS.AES.decrypt(
     data.msg,
     SECRET_KEY
@@ -295,23 +294,6 @@ if (decrypted.trim().toLowerCase() === "top secret") {
         document.body.style.color = "";
     }, 5000);
 }
-
-const censored = censorText(decrypted);
-
-console.log("검열:", censored);
-
-const div = document.createElement("div");
-div.className = "message";
-
-div.textContent = `${data.name}: ${censored}`;
-
-chatBox.appendChild(div);
-
-chatBox.scrollTop = chatBox.scrollHeight;
-```
-
-});
-
 
     const censored = censorText(decrypted);
 
